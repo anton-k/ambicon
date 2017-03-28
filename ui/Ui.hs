@@ -3,10 +3,7 @@ module Main where
 import System.Process
 import Dragon.Osc
 
-import Pages.Bass
-import Pages.Noiser
-import Pages.Haunted
-import Pages.Flow
+import Pages
 
 main = do
     writeJson "ui.json" root
@@ -22,8 +19,8 @@ inits = []
 
 mainWindow = Window 
     { windowTitle = "amby" 
-    , windowSize = Just (400, 300)
+    , windowSize = Just (450, 300)
     , windowContent = ui (Tabs pages)
     , windowKeys = [] }
 
-pages = [flowPage, hauntedPage, noiserPage, bassPage]
+pages = [mixerPage, flowPage, hauntedPage, noiserPage, bassPage, syntPage, padListPage]
