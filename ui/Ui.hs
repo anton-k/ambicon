@@ -7,7 +7,7 @@ import Pages
 
 main = do
     writeJson "ui.json" root
-    system "dragon-osc -i test.json"
+    system "dragon-osc -i test.json --verbose -c quad-flow=5400"
     return ()
 
 root = Root windows keys inits

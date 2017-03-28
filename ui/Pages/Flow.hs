@@ -6,5 +6,7 @@ import Dragon.Osc
 
 flowPage = Page "flow"  flowUi flowKeys
 
-flowUi = ui (XYPad (0.5, 0.5) "olive")
+flowUi = setMsg (flowMsg "/xy" [Arg 0, Arg 1])  $ ui (XYPad (0.5, 0.5) "olive")
 flowKeys = []
+
+flowMsg = Msg "quad-flow" 
