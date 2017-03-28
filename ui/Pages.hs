@@ -5,7 +5,8 @@ module Pages(
     module Pages.Haunted,
     module Pages.Flow,
     module Pages.Synt,
-    module Pages.PadList
+    module Pages.PadList,
+    module Pages.Loop    
 ) where
 
 import Pages.Mixer
@@ -15,3 +16,4 @@ import Pages.Haunted
 import Pages.Flow
 import Pages.Synt
 import Pages.PadList
+import Pages.Loop

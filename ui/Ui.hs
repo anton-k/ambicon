@@ -19,8 +19,8 @@ inits = []
 
 mainWindow = Window 
     { windowTitle = "amby" 
-    , windowSize = Just (450, 300)
+    , windowSize = Just (500, 300)
     , windowContent = ui (Tabs pages)
     , windowKeys = [] }
 
-pages = [mixerPage, flowPage, hauntedPage, noiserPage, bassPage, syntPage, padListPage]
+pages = [mixerPage, flowPage, hauntedPage, noiserPage, bassPage, syntPage, loopPage, padListPage]
