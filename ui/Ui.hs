@@ -1,9 +1,11 @@
-module Main where
+module Ui where
 
 import System.Process
 import Dragon.Osc
 
 import Pages
+
+renderUi = writeJson "ui.json" root
 
 main = do
     writeJson "ui.json" root
