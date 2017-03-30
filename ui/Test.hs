@@ -17,21 +17,26 @@ csound args = system $ "csound " ++ args
 
 runUnit cmd = csound $ "test/units/" ++ cmd ++ ".csd &"
 
-runClients = do
+runClients = do    
     mapM_ runUnit ["pad-1", "pad-2", "pad-3", "pad-4"]
+    threadDelay (10 * 1000)
     runFlow   
+    threadDelay (10 * 1000)
     runHaunted
+    threadDelay (10 * 1000)
+    runMixer    
 
 runFlow = csound "../hs/quad-flow.csd &"
 runHaunted = csound "../haunted/haunt.csd --omacro:PORT=5401 -odac:nil &"
+runMixer = csound "../mixer/mixer.csd --omacro:PORT=5402 &"
 connectJack = system "aj-snapshot -r test/jack-config/flow-test.xml &"
 
-runUi = system $ "dragon-osc -i test.json  --verbose -c quad-flow=5400,haunted=5401 &"
+runUi = system $ "dragon-osc -i test.json  --verbose -c quad-flow=5400,haunted=5401,mixer=5402 &"
 
 setup = do    
     runClients        
-    threadDelay (1000 * 1000)
-    connectJack    
+    threadDelay (1500 * 1000)
+    -- connectJack    
     -- renderUi
     runUi 
     repl

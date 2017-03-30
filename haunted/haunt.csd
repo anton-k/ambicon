@@ -64,6 +64,9 @@ gkY         init 0.5
 ;   "/set-skip"   value-float    -- probability of skipping the playback (0 to 1)
 ;   "/set-width"  value-float    -- stereo width in panorama (0 to 1)
 ;
+;   "/set-x"      value -float   -- set probability      
+;   "/set-y"      value -float   -- set probability 
+;
 ; We can start and stop playback
 ;
 ;  "/start"  1          
