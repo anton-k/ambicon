@@ -1,4 +1,4 @@
 ui/*.json
 haunted/project/target/
 haunted/target/
-hs/*.csd
+hs/tmp.csd
