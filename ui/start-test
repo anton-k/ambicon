@@ -1,0 +1,16 @@
+#!/bin/bash
+csound test/units/pad-1.csd &
+sleep 0.1
+csound test/units/pad-2.csd &
+sleep 0.1
+csound test/units/pad-3.csd &
+sleep 0.1
+csound test/units/pad-4.csd &
+sleep 0.1
+
+csound ../hs/quad-flow.csd &
+csound ../haunted/haunt.csd --omacro:PORT=5401 -odac:nil &
+csound ../mixer/mixer.csd --omacro:PORT=5402 &
+sleep 1
+aj-snapshot -r test/jack-config/flow-test.xml
+dragon-osc -i test.json  --verbose -c quad-flow=5400,haunted=5401,mixer=5402 &

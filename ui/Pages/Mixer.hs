@@ -8,20 +8,30 @@ mixerPage = Page "mixer" mixerUi mixerKeys
 
 mixerUi = multiUi (7, 1) strip
     where
-        strip n = ui $ Ver [label n, vol n, mute]
+        strip n = ui $ Ver [label n, vol n, mute n]
             where
                 isMaster n = n == 6
 
                 label n = ui $ Label "navy" (labels !! n)
 
                 vol n
-                    | isMaster n = ui $ VFader 0.75 "blue"  (0, 1)
-                    | otherwise  = ui $ VFader 0.75 "olive" (0, 1)
+                    | isMaster n = setMasterOsc $ ui $ VFader 85 "blue"  (1, 127)
+                    | otherwise  = setOsc n $ ui $ VFader 85 "olive" (1, 127)
+                    where 
+                        setOsc n = setMsg (mixerMsg "/track/volume" [ArgInt n, Arg 0])
+                        setMasterOsc = setMsg (mixerMsg "/master/volume" [Arg 0])
 
-                mute = ui $ Toggle False "navy" ""
+                mute n  
+                    | isMaster n = setMasterOsc muteUi
+                    | otherwise  = setOsc n muteUi
+                    where
+                        muteUi = ui $ Toggle False "navy" ""
 
-                masterVol = ui $ VFader 0.75 "blue" (0, 1)
-
+                        setOsc n = setMsg (mixerMsg "/track/mute" [ArgInt n, Arg 0])
+                        setMasterOsc = setMsg (mixerMsg "/master/mute" [Arg 0])
+                
                 labels = ["flow", "haunt", "noise", "bass", "synt", "loop", "master"]
+
+mixerMsg = Msg "mixer"
 
 mixerKeys = []

@@ -13,17 +13,16 @@ import Control.Monad (forever)
 
 import Ui(renderUi)
 
+sleep n = threadDelay (n * 1000)
+
 csound args = system $ "csound " ++ args
 
 runUnit cmd = csound $ "test/units/" ++ cmd ++ ".csd &"
 
 runClients = do    
-    mapM_ runUnit ["pad-1", "pad-2", "pad-3", "pad-4"]
-    threadDelay (10 * 1000)
-    runFlow   
-    threadDelay (10 * 1000)
-    runHaunted
-    threadDelay (10 * 1000)
+    mapM_ (\x -> runUnit x >> sleep 100) ["pad-1", "pad-2", "pad-3", "pad-4"]    
+    runFlow       
+    runHaunted    
     runMixer    
 
 runFlow = csound "../hs/quad-flow.csd &"
@@ -35,8 +34,8 @@ runUi = system $ "dragon-osc -i test.json  --verbose -c quad-flow=5400,haunted=5
 
 setup = do    
     runClients        
-    threadDelay (1500 * 1000)
-    -- connectJack    
+    threadDelay (1000 * 1000)
+    connectJack    
     -- renderUi
     runUi 
     repl

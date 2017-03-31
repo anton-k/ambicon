@@ -1,0 +1,4 @@
+#!/bin/bash
+pkill -9 csound
+sleep 1
+pkill -9 java
