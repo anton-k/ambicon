@@ -45,6 +45,7 @@ gkSolos[]   init $SIZE
 gkPhonesVolumes[] init $SIZE
 
 gkSoloMode init 0
+giGlobalGain  init 6
 
 opcode Smooth, k, k
     kx xin
@@ -54,11 +55,17 @@ endop
 
 giDbTab ftgen 0, 0, 64, -7, -70, 16, -25, 48, 7
 
+; opcode GetAmp, k,k
+;     kx xin
+;     kdb tablei (kx / 127), giDbTab, 1
+;     kres = ampdbfs(kdb)
+;     xout kres
+; endop
+
 opcode GetAmp, k,k
-    kx xin
-    kdb tablei (kx / 127), giDbTab, 1
-    kres = ampdbfs(kdb)
-    xout kres
+     kx xin
+     kres gainslider kx
+     xout kres
 endop
 
 opcode GetTotalVolume, k, kkk
@@ -186,8 +193,8 @@ endin
 instr 100 
     kMasterVol GetTotalVolume gkMasterVolume, gkMasterMute, 1
 
-    outch 1, kMasterVol * gaMasterL 
-    outch 2, kMasterVol * gaMasterR
+    outch 1, kMasterVol * gaMasterL * giGlobalGain 
+    outch 2, kMasterVol * gaMasterR * giGlobalGain
 
     kMasterPhonesVolume GetTotalVolume gkMasterPhonesVolume, gkPhonesMute, 1
 
