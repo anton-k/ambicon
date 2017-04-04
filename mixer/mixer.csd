@@ -45,7 +45,7 @@ gkSolos[]   init $SIZE
 gkPhonesVolumes[] init $SIZE
 
 gkSoloMode init 0
-giGlobalGain  init 6
+giGlobalGain  init 8
 
 opcode Smooth, k, k
     kx xin
@@ -64,7 +64,7 @@ giDbTab ftgen 0, 0, 64, -7, -70, 16, -25, 48, 7
 
 opcode GetAmp, k,k
      kx xin
-     kres gainslider kx
+     kres gainslider (kx * 1.1)
      xout kres
 endop
 

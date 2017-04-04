@@ -25,4 +25,4 @@ mainWindow = Window
     , windowContent = ui (Tabs pages)
     , windowKeys = [] }
 
-pages = [mixerPage, flowPage, hauntedPage, noiserPage, bassPage, syntPage, loopPage, padListPage]
+pages = [mixerPage, flowPage, hauntedPage, noiserPage, bassPage, syntPage, loopPage, padListPage, specPage]

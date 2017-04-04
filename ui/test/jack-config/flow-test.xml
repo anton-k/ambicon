@@ -61,6 +61,15 @@
       <connection port="system:playback_2" />
     </port>
   </client>
+  <client name="spec">
+    <port name="output1">
+      <connection port="pad-1:input1" />
+      <connection port="pad-4:input1" />
+      <connection port="pad-2:input1" />
+      <connection port="pad-3:input1" />
+    </port>
+    <port name="output2" />
+  </client>
   <client name="quad-flow">
     <port name="output1">
       <connection port="mixer:input1" />

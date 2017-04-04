@@ -1,4 +1,4 @@
-module Pages.Noiser where
+module Pages.Noiser(noiserPage) where
 
 import Dragon.Osc
 
@@ -11,10 +11,14 @@ noiserUi = ui (Ver [noiserList, noiserTweaks])
                 setOsc = setSend (Send defaultMsgs onValues [])
 
                 onValues = map (\n -> (show n, [
-                        cmdMsg "/process/kill" [ArgString "noiser"],
+                        noiseVol 0,
+                        delCmdMsg 0.1 "/process/kill" [ArgString "noiser"],
                         delCmdMsg 0.1 "/process/run" [ArgString "noiser", ArgString $ "csound test/units/noisers/" ++ files !! n],
-                        delCmdMsg 0.1 "/run" [ArgString "aj-snapshot -r test/jack-config/flow-test.xml"]
+                        delCmdMsg 0.1 "/run" [ArgString "aj-snapshot -r test/jack-config/flow-test.xml"],
+                        noiseVol 0.85
                     ])) [0 .. noiserSize - 1]
+
+                noiseVol x = mixerMsg "/track/volume" [ArgInt 2, ArgFloat (127 * x)]
 
                 defaultMsgs = [cmdMsg "/process/kill" [ArgString "noiser"]]
 
@@ -26,6 +30,8 @@ noiserUi = ui (Ver [noiserList, noiserTweaks])
                     2 -> noiserMsg "/frequency/2" [Arg 0]
                     3 -> noiserMsg "/resonance/2" [Arg 0]
 
+
+mixerMsg = Msg "mixer"
 
 units = fmap (\x -> (x, x ++ ".csd")) ["pink", "white"]
 names = map fst units

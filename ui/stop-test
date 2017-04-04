@@ -1,4 +1,6 @@
 #!/bin/bash
 pkill -9 csound
-sleep 1
+sleep 0.1
 pkill -9 java
+sleep 0.1
+pkill cmd-osc

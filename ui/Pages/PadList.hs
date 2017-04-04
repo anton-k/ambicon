@@ -10,10 +10,12 @@ padUis =  multiUi (4, 1) (\n -> ui $ Ver [
 
 cmdRun flowIdx = Send [] onValue []
     where
-        onValue = map (\n -> (show n, [
-                    cmdMsg "/process/kill" [ArgString $ "pad-" ++ show flowIdx],
+        onValue = map (\n -> (show n, [                
+                    flowMsg ("/vol/" ++ show (flowIdx + 1)) [ArgFloat 0],
+                    delCmdMsg 0.1 "/process/kill" [ArgString $ "pad-" ++ show flowIdx],
                     delCmdMsg 0.1 "/process/run" [ArgString $ "pad-" ++ show flowIdx, ArgString $ "csound -+jack_client=pad-" ++ (show $ flowIdx + 1) ++ " test/units/pads/pad-" ++ (show $ 1 + n) ++ ".csd"],
-                    delCmdMsg 0.1 "/run" [ArgString "aj-snapshot -r test/jack-config/flow-test.xml"]
+                    delCmdMsg 0.1 "/run" [ArgString "aj-snapshot -r test/jack-config/flow-test.xml"],
+                    flowMsg ("/vol/" ++ show (flowIdx + 1)) [ArgFloat 1.15]
                     ])) [0 .. 7]
 
 
