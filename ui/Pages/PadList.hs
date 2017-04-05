@@ -2,7 +2,7 @@ module Pages.PadList(padListPage) where
 
 import Dragon.Osc
 
-padListPage = Page "pad-list" padUis padKeys
+padListPage _ = Page "pad-list" padUis padKeys
 
 padUis =  multiUi (4, 1) (\n -> ui $ Ver [
         setSend (cmdRun n) $ ui $ VCheck n 8 "olive" (map (("pad " ++) . show) [1 .. 8]) Nothing, 

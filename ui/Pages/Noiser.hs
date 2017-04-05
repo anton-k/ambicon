@@ -2,10 +2,16 @@ module Pages.Noiser(noiserPage) where
 
 import Dragon.Osc
 
-noiserPage = Page "noiser" noiserUi noiserKeys
+import ReadDir(FileSrc(..))
 
-noiserUi = ui (Ver [noiserList, noiserTweaks])
+noiserPage units = Page "noiser" (noiserUi units) noiserKeys
+
+noiserUi units = ui (Ver [noiserList, noiserTweaks])
     where        
+        names = fmap fileSrcName units
+        noiserSize = length units
+        files = map fileSrcPath units
+
         noiserList = setOsc $ ui $ HCheck (-1) noiserSize "blue" names Nothing
             where
                 setOsc = setSend (Send defaultMsgs onValues [])
@@ -13,14 +19,14 @@ noiserUi = ui (Ver [noiserList, noiserTweaks])
                 onValues = map (\n -> (show n, [
                         noiseVol 0,
                         delCmdMsg 0.1 "/process/kill" [ArgString "noiser"],
-                        delCmdMsg 0.1 "/process/run" [ArgString "noiser", ArgString $ "csound test/units/noisers/" ++ files !! n],
+                        delCmdMsg 0.1 "/process/run" [ArgString "noiser", ArgString $ "csound " ++ files !! n],
                         delCmdMsg 0.1 "/run" [ArgString "aj-snapshot -r test/jack-config/flow-test.xml"],
                         noiseVol 0.85
                     ])) [0 .. noiserSize - 1]
 
                 noiseVol x = mixerMsg "/track/volume" [ArgInt 2, ArgFloat (127 * x)]
 
-                defaultMsgs = [cmdMsg "/process/kill" [ArgString "noiser"]]
+                defaultMsgs = [noiseVol 0, cmdMsg "/process/kill" [ArgString "noiser"], noiseVol 0.85]
 
         noiserTweaks = multiUi (4, 1) (\n -> setMsg (setOsc n) $ ui $ Dial 0.5 "olive" (0, 1))
             where
@@ -32,11 +38,6 @@ noiserUi = ui (Ver [noiserList, noiserTweaks])
 
 
 mixerMsg = Msg "mixer"
-
-units = fmap (\x -> (x, x ++ ".csd")) ["pink", "white"]
-names = map fst units
-files = map snd units
-noiserSize = length units
 
 noiserKeys = []
 

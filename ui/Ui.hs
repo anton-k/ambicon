@@ -3,26 +3,39 @@ module Ui where
 import System.Process
 import Dragon.Osc
 
+import ReadDir
 import Pages
 
-renderUi = writeJson "ui.json" root
+renderUi = do
+    config <- readSrc
+    writeJson "ui.json" (root config)
 
 main = do
-    writeJson "ui.json" root
+    config <- readSrc    
+    writeJson "ui.json" $ root config
     system "dragon-osc -i test.json --verbose -c quad-flow=5400"
     return ()
 
-root = Root windows keys inits
+root config = Root (windows config) keys inits
 
-windows = [mainWindow]
+windows config = [mainWindow config]
 
 keys = []
 inits = []
 
-mainWindow = Window 
+mainWindow config = Window 
     { windowTitle = "amby" 
     , windowSize = Just (500, 300)
-    , windowContent = ui (Tabs pages)
+    , windowContent = ui (Tabs $ pages config)
     , windowKeys = [] }
 
-pages = [mixerPage, flowPage, hauntedPage, noiserPage, bassPage, syntPage, loopPage, padListPage, specPage]
+pages config = 
+    [ mixerPage
+    , flowPage
+    , hauntedPage
+    , noiserPage $ srcNoisers config
+    , bassPage
+    , syntPage $ srcMidis config
+    , loopPage
+    , padListPage $ srcPads config
+    , specPage]
