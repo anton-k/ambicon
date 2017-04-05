@@ -1,14 +1,11 @@
 module Pages.PadList(padListPage) where
 
-import Data.Ord
-import Data.List
-
 import Dragon.Osc
 
 import ReadDir
 
 padListPage units = Page "pad-list" (padUis units') padKeys
-    where units' = fmap (sortBy $ comparing fileSrcName) $ fmap snd $ sortBy (comparing fst) units
+    where units' = fmap snd units
 
 padUis units =  multiUi (padSize, 1) (\n -> 
         let len = length $ units !! n

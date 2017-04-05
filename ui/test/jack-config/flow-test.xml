@@ -64,11 +64,19 @@
   <client name="spec">
     <port name="output1">
       <connection port="pad-1:input1" />
-      <connection port="pad-4:input1" />
       <connection port="pad-2:input1" />
       <connection port="pad-3:input1" />
+      <connection port="pad-4:input1" />
     </port>
     <port name="output2" />
+  </client>
+  <client name="haunted">
+    <port name="output1">
+      <connection port="mixer:input3" />
+    </port>
+    <port name="output2">
+      <connection port="mixer:input4" />
+    </port>
   </client>
   <client name="quad-flow">
     <port name="output1">
@@ -83,14 +91,6 @@
     <port name="output6" />
     <port name="output7" />
     <port name="output8" />
-  </client>
-  <client name="haunted">
-    <port name="output1">
-      <connection port="mixer:input3" />
-    </port>
-    <port name="output2">
-      <connection port="mixer:input4" />
-    </port>
   </client>
   <client name="mixer">
     <port name="output1">
@@ -144,6 +144,14 @@
     </port>
     <port name="output2">
       <connection port="quad-flow:input8" />
+    </port>
+  </client>
+  <client name="synt">
+    <port name="output1">
+      <connection port="mixer:input9" />
+    </port>
+    <port name="output2">
+      <connection port="mixer:input10" />
     </port>
   </client>
   <client name="noise">
