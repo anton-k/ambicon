@@ -9,15 +9,16 @@ cmd-osc --port 5555 &
 #csound test/units/pad-4.csd &
 #sleep 0.1
 
-sleep 0.1
+csound ../sampler/new_sampler.csd --omacro:PORT=5403 &
+sleep 0.5
 csound ../hs/spec.csd &
-sleep 0.1
+sleep 0.15
 csound ../hs/quad-flow.csd &
-sleep 0.1
+sleep 0.15
 csound ../haunted/haunt.csd --omacro:PORT=5401 -odac:nil &
-sleep 0.1
-csound ../mixer/mixer.csd --omacro:PORT=5402 &
-dragon-osc -i test.json  --verbose -c quad-flow=5400,haunted=5401,mixer=5402,cmd=5555,noiser=6400,spec=4400 &
-sleep 3
+sleep 0.15
+csound ../mixer/mixer.csd --omacro:PORT=5402 --omacro:SIZE=12 --omacro:CHANNEL_SIZE=24 &
+dragon-osc -i test.json  --verbose -c quad-flow=5400,haunted=5401,mixer=5402,cmd=5555,noiser=6400,spec=4400,sampler=5403 &
+sleep 0.5
 aj-snapshot -r test/jack-config/flow-test.xml
 

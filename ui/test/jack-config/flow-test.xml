@@ -61,6 +61,40 @@
       <connection port="system:playback_2" />
     </port>
   </client>
+  <client name="sampler">
+    <port name="output1">
+      <connection port="mixer:input7" />
+    </port>
+    <port name="output2">
+      <connection port="mixer:input8" />
+    </port>
+    <port name="output3">
+      <connection port="mixer:input9" />
+    </port>
+    <port name="output4">
+      <connection port="mixer:input10" />
+    </port>
+    <port name="output5">
+      <connection port="mixer:input11" />
+    </port>
+    <port name="output6">
+      <connection port="mixer:input12" />
+    </port>
+    <port name="output7" />
+    <port name="output8" />
+    <port name="output9">
+      <connection port="mixer:input15" />
+    </port>
+    <port name="output10">
+      <connection port="mixer:input16" />
+    </port>
+    <port name="output11">
+      <connection port="mixer:input23" />
+    </port>
+    <port name="output12">
+      <connection port="mixer:input24" />
+    </port>
+  </client>
   <client name="spec">
     <port name="output1">
       <connection port="pad-1:input1" />
@@ -69,14 +103,6 @@
       <connection port="pad-4:input1" />
     </port>
     <port name="output2" />
-  </client>
-  <client name="haunted">
-    <port name="output1">
-      <connection port="mixer:input3" />
-    </port>
-    <port name="output2">
-      <connection port="mixer:input4" />
-    </port>
   </client>
   <client name="quad-flow">
     <port name="output1">
@@ -91,6 +117,14 @@
     <port name="output6" />
     <port name="output7" />
     <port name="output8" />
+  </client>
+  <client name="haunted">
+    <port name="output1">
+      <connection port="mixer:input3" />
+    </port>
+    <port name="output2">
+      <connection port="mixer:input4" />
+    </port>
   </client>
   <client name="mixer">
     <port name="output1">
@@ -113,6 +147,14 @@
     <port name="output14" />
     <port name="output15" />
     <port name="output16" />
+    <port name="output17" />
+    <port name="output18" />
+    <port name="output19" />
+    <port name="output20" />
+    <port name="output21" />
+    <port name="output22" />
+    <port name="output23" />
+    <port name="output24" />
   </client>
   <client name="pad-1">
     <port name="output1">
@@ -146,20 +188,22 @@
       <connection port="quad-flow:input8" />
     </port>
   </client>
-  <client name="synt">
-    <port name="output1">
-      <connection port="mixer:input9" />
-    </port>
-    <port name="output2">
-      <connection port="mixer:input10" />
-    </port>
-  </client>
   <client name="noise">
     <port name="output1">
       <connection port="mixer:input5" />
     </port>
     <port name="output2">
       <connection port="mixer:input6" />
+    </port>
+  </client>
+  <client name="synt">
+    <port name="output1">
+      <connection port="sampler:input1" />
+      <connection port="mixer:input13" />
+    </port>
+    <port name="output2">
+      <connection port="sampler:input2" />
+      <connection port="mixer:input14" />
     </port>
   </client>
 </jack>

@@ -1,4 +1,4 @@
-module Pages.Mixer where
+module Pages.Mixer(mixerPage) where
 
 import Dragon.Osc
 
@@ -6,11 +6,11 @@ import Dragon.Osc
 
 mixerPage = Page "mixer" mixerUi mixerKeys
 
-mixerUi = multiUi (7, 1) strip
+mixerUi = multiUi (mixSize, 1) strip
     where
         strip n = ui $ Ver [label n, vol n, mute n]
             where
-                isMaster n = n == 6
+                isMaster n = n == mixSize - 1
 
                 label n = ui $ Label "navy" (labels !! n)
 
@@ -30,7 +30,9 @@ mixerUi = multiUi (7, 1) strip
                         setOsc n = setMsg (mixerMsg "/track/mute" [ArgInt n, Arg 0])
                         setMasterOsc = setMsg (mixerMsg "/master/mute" [Arg 0])
                 
-                labels = ["flow", "haunt", "noise", "bass", "synt", "loop", "master"]
+labels = ["flow", "haunt", "noise", "bass", "lows", "highs", "synt", "loop", "master"]
+
+mixSize = length labels
 
 mixerMsg = Msg "mixer"
 

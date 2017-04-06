@@ -6,7 +6,7 @@ module Pages(
     module Pages.Flow,
     module Pages.Synt,
     module Pages.PadList,
-    module Pages.Loop ,   
+    module Pages.Loop,    
     module Pages.Spec
 ) where
 

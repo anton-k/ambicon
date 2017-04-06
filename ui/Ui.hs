@@ -37,5 +37,6 @@ pages config =
     , bassPage
     , syntPage $ srcMidis config
     , loopPage
+    , delLoopPage
     , padListPage $ srcPads config
     , specPage]
